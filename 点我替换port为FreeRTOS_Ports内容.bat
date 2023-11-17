@@ -1,0 +1,2 @@
+copy /v /y .\FreeRTOS_Ports\port.c .\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F
+copy /v /y .\FreeRTOS_Ports\portmacro.h .\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F
