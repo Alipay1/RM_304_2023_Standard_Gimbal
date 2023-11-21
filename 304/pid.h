@@ -10,7 +10,7 @@ extern int32_t now_turns;
 
 #define abs_i(x) ((x) < 0 ? -(x) : (x))
 
-#define SHOOTING_RATE -4000
+#define SHOOTING_RATE -2000
 
 extern int GLOBAL_INIT;
 extern float g_pitch;
@@ -64,7 +64,6 @@ enum
 
 int PID_Setup(void);
 int PID_Gimbal_Calculate(void);
-
 
 float abs_f(float value);
 

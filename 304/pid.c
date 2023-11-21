@@ -21,7 +21,7 @@ int PID_Setup(void)
     uint8_t i = 0;
     (pid_speed_struct + i)->motor_number = 0;
     (pid_speed_struct + i)->active = true;
-    (pid_speed_struct + i)->ideal = -4550;
+    (pid_speed_struct + i)->ideal = -6000;
     (pid_speed_struct + i)->Kp = 5.0f; /*1*/
     (pid_speed_struct + i)->Ki = 0.02f;
     (pid_speed_struct + i)->Kd = 0.1f;
@@ -31,7 +31,7 @@ int PID_Setup(void)
     i++;
     (pid_speed_struct + i)->motor_number = 1;
     (pid_speed_struct + i)->active = true;
-    (pid_speed_struct + i)->ideal = 4550;
+    (pid_speed_struct + i)->ideal = 6000;
     (pid_speed_struct + i)->Kp = 5.0f; /*2*/
     (pid_speed_struct + i)->Ki = 0.02f;
     (pid_speed_struct + i)->Kd = 0.1f;
@@ -145,8 +145,8 @@ PID YAW_V = {
     .err = 0,
     .err_last = 0,
     .err_last_last = 0,
-    .Kp = 6000.0f, //13000 10000 
-    .Ki = 115.0f, //550
+    .Kp = 6000.0f, // 13000 10000
+    .Ki = 115.0f,  // 550
     .Kd = 0.0f,
     .Limit_Iout = 28000,
     .Limit_Out = 30000,
@@ -162,7 +162,7 @@ PID YAW_P = {
     .err_last = 0,
     .err_last_last = 0,
     .Kp = 0.14f,
-//    .Kp = 0.0051f,
+    //    .Kp = 0.0051f,
     .Ki = 0.0f,
     .Kd = 0.0f,
     .Limit_Iout = 20,
@@ -441,7 +441,7 @@ fp32 PID_YAW_Union_Calculate(PID *pxStructV, PID *pxStructP, float position, boo
     // pxStructP->ideal = position * 22.75277777f;
     // // YAW_Motor_Position += Angle_Position_Calc(YAW_MOTOR_NUM);
     // pxStructP->actual = INS.YawTotalAngle * 22.75277777f;
-    
+
     pxStructP->ideal = position;
     // YAW_Motor_Position += Angle_Position_Calc(YAW_MOTOR_NUM);
     pxStructP->actual = INS.YawTotalAngle;

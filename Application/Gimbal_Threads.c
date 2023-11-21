@@ -81,15 +81,19 @@ void CAN_Transmition_Thread(void *arg)
         {
             (rc_chas->mouse_integeral.y) = 1500.0f;
         }
-        else if ((rc_chas->mouse_integeral.y * 0.01f) < -15.0f)
+        else if ((rc_chas->mouse_integeral.y * 0.01f) < -23.0f)
         {
-            (rc_chas->mouse_integeral.y) = -1500.0f;
+            (rc_chas->mouse_integeral.y) = -2300.0f;
         }
 
         if ((rc_chas->mouse.press_l == 1 || rc->rc.s[1] == 2))
         {
             Feeder_Wheel->ideal = SHOOTING_RATE;
             buzzer_on(500, 1500);
+        }
+        else if (rc_chas->mouse.press_r == 1)
+        {
+            Feeder_Wheel->ideal = -SHOOTING_RATE;
         }
         else
         {
