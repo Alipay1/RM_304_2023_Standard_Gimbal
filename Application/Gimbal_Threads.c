@@ -33,13 +33,6 @@ void CAN_Transmition_Thread(void *arg)
     motor_measure_t *T = get_measure_pointer(YAW_MOTOR_NUM);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 
-    // #ifdef PITCH_IN_RESPONSE_TEST_MODE
-    // int counter = 0;
-
-    // float Given_Value = 0;
-
-    // #endif // PITCH_IN_RESPONSE_TEST_MODE
-
     PID_Setup();
 
     // xTaskCreate(MotorCheckTask, "MTC", 128, pxYAW_V, 0, &YawMotorCheckTaskHandle);
@@ -48,34 +41,6 @@ void CAN_Transmition_Thread(void *arg)
     buzzer_off();
     while (1)
     {
-#ifdef PITCH_IN_RESPONSE_TEST_MODE
-        counter++;
-        if (counter == 500)
-        {
-            Given_Value = 5000;
-        }
-        else if (counter == 1000)
-        {
-            Given_Value = -5000;
-            counter = 0;
-        }
-        FlywheelL->ideal = Given_Value;
-        FlywheelR->ideal = -Given_Value;
-        PID_Gimbal_Calculate();
-        PID_YAW_Union_Calculate(pxYAW_V, pxYAW_P, Given_Value, false);
-        // VisualScope_Output(T->speed_rpm, Given_Value, 0, 0);
-        USART_Print("$%d %d %d;", (int)FlywheelL->actual, -(int)FlywheelR->actual, (int)FlywheelL->ideal, (int)FlywheelL->actual + (int)FlywheelR->actual);
-#else
-        // counter++;
-        // if (counter == 500)
-        // {
-        //     Given_Value = 10.0f;
-        // }
-        // else if (counter == 1000)
-        // {
-        //     Given_Value = -10.0f;
-        //     counter = 0;
-        // }
 
         if ((rc_chas->mouse_integeral.y * 0.01f) > 15.0f)
         {
@@ -107,7 +72,7 @@ void CAN_Transmition_Thread(void *arg)
         // PID_PITCH_Union_Calculate(pxPITCH_V, pxPITCH_A,Given_Value);
         // PID_PITCH_Union_Calculate(pxPITCH_V, pxPITCH_A, Given_Value);
         PID_Gimbal_Calculate();
-#endif // PITCH_IN_RESPONSE_TEST_MODE
+
         if ((rc_chas->key.v & KEY_PRESSED_OFFSET_F) == 0)
         {
             TIM_Set_PWM(&htim1, TIM_CHANNEL_1, 1570);
